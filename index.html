@@ -1,0 +1,884 @@
+<title>Sanithu Abewickrama</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+/* A presentation deck rendered as a page: every section is a wide cinematic
+   slab with oversized type set over imagery, glass sub-cards floating on top.
+   Blue and black ground, silver as the metal that catches the light. */
+:root{
+  color-scheme: dark;
+
+  --black:  #03060B;
+  --ink:    #060B14;
+  --slab:   #0A111E;
+  --slab-2: #0D1726;
+  --navy:   #102540;
+  --blue:   #1F5FA8;
+  --azure:  #3E8FDC;
+  --sky:    #8CC2F2;
+
+  --silver:   #C9D6E6;
+  --silver-2: #93A6BC;
+  --chrome:   linear-gradient(145deg,#FFFFFF 0%,#D6E2F0 28%,#8FA3B8 55%,#EDF3FA 78%,#AFC0D2 100%);
+
+  --text:      #E9F0F9;
+  --text-soft: rgba(233,240,249,.74);
+  --text-mute: rgba(233,240,249,.48);
+  --text-dim:  rgba(233,240,249,.3);
+
+  --line:      rgba(201,214,230,.16);
+  --line-soft: rgba(201,214,230,.09);
+  --glass:     rgba(255,255,255,.045);
+  --glass-2:   rgba(255,255,255,.08);
+  --edge:      rgba(255,255,255,.12);
+
+  --lift-1: 0 1px 2px rgba(0,0,0,.5), 0 6px 16px rgba(0,0,0,.34),
+            inset 0 1px 0 rgba(255,255,255,.08);
+  --lift-2: 0 2px 5px rgba(0,0,0,.5), 0 16px 34px rgba(0,0,0,.4),
+            0 40px 72px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.1);
+  --lift-3: 0 3px 9px rgba(0,0,0,.55), 0 26px 54px rgba(0,0,0,.5),
+            0 70px 120px rgba(0,0,0,.44), inset 0 1px 0 rgba(255,255,255,.14);
+
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --sans:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --s--1: clamp(.71rem,.69rem + .1vw,.78rem);
+  --s-0:  clamp(.93rem,.9rem + .16vw,1.01rem);
+  --s-1:  clamp(1.08rem,1.01rem + .34vw,1.28rem);
+  --s-2:  clamp(1.4rem,1.2rem + .9vw,1.95rem);
+  --s-3:  clamp(1.85rem,1.48rem + 1.8vw,2.9rem);
+  --s-4:  clamp(2.4rem,1.5rem + 4.6vw,5rem);
+  --s-5:  clamp(3rem,1.4rem + 8.4vw,8.4rem);
+
+  --maxw: 1260px;
+  --r-xl: 28px;
+  --r-lg: 22px;
+  --r-md: 16px;
+}
+
+*{ box-sizing:border-box }
+
+body{
+  margin:0; background:var(--black); color:var(--text);
+  font-family:var(--sans); font-weight:300;
+  font-size:var(--s-0); line-height:1.7;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(860px 580px at 80% -6%, rgba(31,95,168,.3), transparent 62%),
+    radial-gradient(700px 500px at 2% 28%, rgba(16,37,64,.7), transparent 62%),
+    radial-gradient(800px 600px at 64% 106%, rgba(31,95,168,.18), transparent 62%);
+}
+
+.wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:18px }
+a{ color:inherit } img{ display:block; max-width:100% } p{ margin:0 }
+:focus-visible{ outline:1.5px solid var(--azure); outline-offset:3px; border-radius:10px }
+
+h1,h2,h3{ font-family:var(--display); font-weight:800; margin:0;
+          letter-spacing:-.03em; line-height:1.02; text-wrap:balance }
+section{ scroll-margin-top:90px }
+
+.chrome{
+  background:var(--chrome); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.label{
+  display:inline-flex; align-items:center; gap:11px;
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.24em;
+  text-transform:uppercase; color:var(--text-dim); margin:0 0 14px;
+}
+.label::before{ content:""; width:22px; height:1px; background:var(--azure) }
+.lede{ color:var(--text-soft); font-size:var(--s-1); line-height:1.6; max-width:56ch }
+
+/* ---- the slab every section is built from ---- */
+.slab{
+  position:relative; border-radius:var(--r-xl); overflow:hidden;
+  background:linear-gradient(166deg, var(--slab-2), var(--slab));
+  border:1px solid var(--line-soft); box-shadow:var(--lift-2);
+}
+.slab::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(128deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.015) 22%, transparent 44%);
+}
+.deck{ display:grid; gap:clamp(12px,1.6vw,20px); padding-block:clamp(12px,1.6vw,20px) }
+.pad{ padding:clamp(24px,3.4vw,52px) }
+
+/* ---- buttons ---- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+  font-size:.79rem; font-weight:500; padding:12px 10px 12px 22px; border-radius:999px;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s;
+}
+.btn .pip{ width:27px; height:27px; border-radius:50%; display:grid; place-items:center; flex:none; transition:transform .25s }
+.btn:hover .pip{ transform:translateX(3px) }
+.btn-silver{
+  background:var(--chrome); color:#07101C; font-weight:600;
+  box-shadow:0 2px 6px rgba(0,0,0,.5), 0 16px 32px rgba(0,0,0,.4);
+}
+.btn-silver .pip{ background:#07101C; color:#DCE7F4 }
+.btn-silver:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.55), 0 26px 48px rgba(0,0,0,.46) }
+.btn-glass{
+  background:var(--glass-2); border:1px solid var(--edge); color:var(--text);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:var(--lift-1);
+}
+.btn-glass .pip{ background:var(--azure); color:#03060B }
+.btn-glass:hover{ transform:translateY(-2px); box-shadow:var(--lift-2) }
+
+/* ================= MASTHEAD ================= */
+.masthead{ text-align:center; padding-block:clamp(18px,2.6vw,30px) 4px }
+.avatar{
+  width:42px; height:42px; border-radius:50%; margin:0 auto; overflow:hidden;
+  border:1px solid var(--edge);
+  box-shadow:0 8px 22px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.3);
+}
+.avatar img{ width:100%; height:100%; object-fit:cover }
+.masthead .nm{ font-family:var(--display); font-weight:600; font-size:.95rem; margin-top:12px; letter-spacing:-.01em }
+.masthead .hd{ font-family:var(--mono); font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); margin-top:5px }
+
+/* ================= NAV ================= */
+header.nav{ position:sticky; top:env(safe-area-inset-top,0px); z-index:90; padding-block:10px }
+.nav-in{
+  display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap;
+  padding:10px 22px; border-radius:999px;
+  background:rgba(6,11,20,.76); border:1px solid var(--line-soft);
+  backdrop-filter:blur(24px) saturate(170%); -webkit-backdrop-filter:blur(24px) saturate(170%);
+  box-shadow:var(--lift-2);
+}
+.nav-in a{ font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-mute); text-decoration:none; transition:color .25s }
+.nav-in a:hover{ color:var(--text) }
+.nav-in a.cta{ color:var(--sky) }
+
+/* ================= HERO SLAB ================= */
+.hero{ min-height:clamp(420px,62vw,620px); display:flex; align-items:flex-end }
+.hero > .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0 }
+.hero::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(104deg, rgba(3,6,11,.95) 0%, rgba(3,6,11,.72) 42%, rgba(3,6,11,.3) 74%),
+    linear-gradient(0deg, rgba(3,6,11,.94) 0%, transparent 52%);
+}
+.hero-in{ position:relative; z-index:3; padding:clamp(24px,3.4vw,52px); width:100% }
+.hero-eyebrow{
+  font-family:var(--mono); font-size:.6rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--sky); margin-bottom:clamp(60px,10vw,150px);
+}
+.hero h1{
+  font-size:var(--s-5); font-weight:900; letter-spacing:-.045em; line-height:.86;
+  margin:0 0 14px;
+}
+.hero h1 .sub{
+  display:block; font-size:clamp(.95rem,.7rem + .9vw,1.5rem); font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--text-soft); margin-top:12px;
+}
+.hero p.pitch{ color:var(--text-soft); max-width:42ch; line-height:1.6; margin-top:16px }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:11px; margin-top:24px }
+.hero-stats{
+  display:flex; flex-wrap:wrap; gap:clamp(18px,3vw,54px); margin-top:clamp(24px,3vw,38px);
+  padding-top:clamp(18px,2.4vw,26px); border-top:1px solid var(--line-soft);
+}
+.hstat{ min-width:0 }
+.hstat b{ display:block; font-family:var(--display); font-weight:700; font-size:1.3rem; color:var(--silver) }
+.hstat span{ display:block; font-size:.66rem; color:var(--text-mute); margin-top:3px }
+
+/* ================= TWO UP ================= */
+.two{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(12px,1.6vw,20px) }
+@media (max-width:900px){ .two{ grid-template-columns:1fr } }
+.about h2{ font-size:var(--s-3) }
+.about p{ color:var(--text-soft); margin-top:18px; max-width:46ch }
+.marks{ list-style:none; margin:26px 0 0; padding:0; display:grid; gap:12px }
+.marks li{ display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:start }
+.marks .ic{
+  width:34px; height:34px; border-radius:11px; display:grid; place-items:center; flex:none;
+  background:var(--glass); border:1px solid var(--line); color:var(--sky); box-shadow:var(--lift-1);
+}
+.marks h4{ margin:0; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase }
+.marks p{ font-size:.82rem; line-height:1.55; color:var(--text-mute); margin-top:5px; max-width:36ch }
+
+.figure-slab{ position:relative; min-height:320px }
+.figure-slab > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
+.figure-slab .veil{
+  position:relative; z-index:2; min-height:320px; height:100%;
+  padding:clamp(22px,2.8vw,34px); display:flex; flex-direction:column; justify-content:flex-end;
+  background:linear-gradient(170deg, rgba(3,6,11,.26), rgba(3,6,11,.86));
+}
+.figure-slab h3{ font-size:1.45rem; font-weight:700 }
+.figure-slab p{ color:var(--text-soft); font-size:.85rem; margin-top:9px; max-width:32ch }
+.chipline{ display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; padding:0; list-style:none }
+.chipline li{
+  font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; padding:6px 11px; border-radius:999px;
+  background:rgba(255,255,255,.08); border:1px solid var(--edge); color:var(--text-soft);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+}
+
+/* ================= SERVICES ================= */
+.svc-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:22px; flex-wrap:wrap }
+.svc-grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:10px; margin-top:clamp(22px,3vw,34px) }
+@media (max-width:1080px){ .svc-grid{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:620px){ .svc-grid{ grid-template-columns:repeat(2,1fr) } }
+.svc{
+  position:relative; overflow:hidden; padding:20px 16px; border-radius:var(--r-md); min-width:0;
+  background:var(--glass); border:1px solid var(--line-soft);
+  transition:transform .4s cubic-bezier(.2,.8,.3,1), box-shadow .4s, border-color .4s;
+}
+.svc::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(130deg, rgba(255,255,255,.1) 0%, transparent 40%);
+}
+.svc:hover{ transform:translateY(-6px); box-shadow:var(--lift-2); border-color:var(--line) }
+.svc .ic{ color:var(--sky); margin-bottom:13px }
+.svc h4{ margin:0; font-size:.67rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; line-height:1.45 }
+.svc p{ font-size:.73rem; line-height:1.5; color:var(--text-mute); margin-top:7px }
+
+/* ================= FEATURED PROJECT ================= */
+.feat{ display:grid; grid-template-columns:.86fr 1.14fr; gap:clamp(22px,3vw,44px); align-items:center }
+@media (max-width:980px){ .feat{ grid-template-columns:1fr } }
+.feat h2{ font-size:var(--s-3) }
+.feat h2 em{ font-style:normal; color:var(--sky) }
+.feat p{ color:var(--text-soft); margin-top:16px; max-width:44ch }
+.feat ul{ list-style:none; margin:24px 0 0; padding:0; display:grid; gap:11px }
+.feat li{ display:flex; gap:12px; align-items:flex-start; font-size:.85rem; color:var(--text-soft) }
+.feat li .ic{ color:var(--azure); flex:none; margin-top:3px }
+.shotframe{
+  border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--line);
+  box-shadow:var(--lift-3); background:var(--ink);
+}
+.shotframe img{ width:100% }
+
+/* ================= PROJECT GRID ================= */
+.proj-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:clamp(20px,2.6vw,30px) }
+@media (max-width:1020px){ .proj-grid{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:600px){ .proj-grid{ grid-template-columns:1fr } }
+.card{
+  position:relative; border-radius:var(--r-lg); overflow:hidden; min-width:0;
+  border:1px solid var(--line-soft); background:var(--ink);
+  transition:transform .45s cubic-bezier(.2,.8,.3,1), box-shadow .45s, border-color .45s;
+}
+.card::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit; z-index:3;
+  background:linear-gradient(132deg, rgba(255,255,255,.12) 0%, transparent 38%);
+}
+.card:hover{ transform:translateY(-7px); box-shadow:var(--lift-3); border-color:var(--line) }
+.card .frame{
+  position:relative; width:100%; aspect-ratio:4/3; overflow:hidden;
+  background:linear-gradient(170deg,#0C1524,#070C16);
+}
+.card .frame img{
+  width:100%; height:100%; object-fit:cover; object-position:top center;
+  transition:transform .7s cubic-bezier(.2,.8,.3,1);
+}
+.card:hover .frame img{ transform:scale(1.04) }
+.card .frame.photo img{ object-position:center 22% }
+.card .tag{
+  position:absolute; left:11px; top:11px; z-index:4; padding:5px 11px; border-radius:999px;
+  font-family:var(--mono); font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--text);
+  background:rgba(3,6,11,.74); border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.card .meta{ padding:15px 17px 19px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px }
+.card .t{ font-family:var(--display); font-weight:600; font-size:.98rem; line-height:1.25 }
+.card .s{ font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--text-mute); margin-top:5px }
+.card .ar{ flex:none; color:var(--azure); margin-top:3px; transition:transform .3s }
+.card:hover .ar{ transform:translateX(4px) }
+
+/* ================= FORMULA (numbered steps over an image) ================= */
+.formula{ min-height:clamp(420px,46vw,560px); display:flex; align-items:flex-end }
+.formula > .bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0 }
+.formula::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(170deg, rgba(3,6,11,.5) 0%, rgba(3,6,11,.42) 40%, rgba(3,6,11,.93) 100%);
+}
+.formula .in{ position:relative; z-index:2; padding:clamp(24px,3.4vw,52px); width:100% }
+.formula h2{ font-size:var(--s-4); font-weight:900; letter-spacing:-.04em; max-width:16ch }
+.formula h2 em{ font-style:normal; color:var(--sky) }
+.steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:clamp(24px,3vw,40px) }
+@media (max-width:860px){ .steps{ grid-template-columns:1fr } }
+.step{
+  position:relative; overflow:hidden; padding:24px 22px 26px; border-radius:var(--r-lg);
+  background:rgba(255,255,255,.07); border:1px solid var(--edge);
+  backdrop-filter:blur(26px) saturate(170%); -webkit-backdrop-filter:blur(26px) saturate(170%);
+  box-shadow:var(--lift-2);
+  transition:transform .4s cubic-bezier(.2,.8,.3,1), box-shadow .4s;
+}
+.step::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(130deg, rgba(255,255,255,.16) 0%, transparent 42%);
+}
+.step:hover{ transform:translateY(-6px); box-shadow:var(--lift-3) }
+.step h4{ margin:0; font-family:var(--display); font-weight:700; font-size:1rem }
+.step p{ font-size:.82rem; line-height:1.55; color:var(--text-soft); margin-top:9px; max-width:34ch }
+.step .no{
+  position:absolute; right:16px; bottom:6px; font-family:var(--display); font-weight:800;
+  font-size:3.4rem; line-height:1; color:rgba(255,255,255,.08);
+}
+
+/* ================= CREDENTIALS ================= */
+.cred-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-top:clamp(22px,3vw,34px) }
+@media (max-width:1020px){ .cred-grid{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:560px){ .cred-grid{ grid-template-columns:1fr } }
+.cred{
+  position:relative; overflow:hidden; padding:24px 20px; border-radius:var(--r-lg); min-width:0;
+  background:linear-gradient(162deg, rgba(31,95,168,.2), rgba(10,17,30,.72));
+  border:1px solid var(--line-soft);
+  transition:transform .42s cubic-bezier(.2,.8,.3,1), box-shadow .42s, border-color .42s;
+}
+.cred::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(128deg, rgba(255,255,255,.14) 0%, transparent 42%);
+}
+.cred:hover{ transform:translateY(-7px); box-shadow:var(--lift-3); border-color:rgba(140,194,242,.3) }
+.cred .ic{
+  width:40px; height:40px; border-radius:13px; display:grid; place-items:center;
+  color:#07101C; background:var(--chrome); margin-bottom:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.6);
+}
+.cred .n{ font-family:var(--display); font-weight:700; font-size:.95rem; line-height:1.3 }
+.cred .s{ font-size:.63rem; color:var(--text-mute); margin-top:8px; line-height:1.5 }
+
+/* ================= DETAIL ================= */
+.dlist{ display:grid; gap:12px; margin-top:clamp(20px,2.6vw,30px) }
+.drow{
+  position:relative; overflow:hidden;
+  display:grid; grid-template-columns:auto 1fr auto; gap:clamp(14px,2.2vw,26px);
+  align-items:start; padding:clamp(18px,2.4vw,28px); border-radius:var(--r-lg);
+  background:var(--glass); border:1px solid var(--line-soft);
+  transition:transform .4s cubic-bezier(.2,.8,.3,1), border-color .4s, box-shadow .4s;
+}
+.drow::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:linear-gradient(132deg, rgba(255,255,255,.08) 0%, transparent 38%);
+}
+.drow:hover{ transform:translateY(-4px); border-color:var(--line); box-shadow:var(--lift-2) }
+.drow .num{ font-family:var(--display); font-weight:800; font-size:1.5rem; color:var(--azure); line-height:1; min-width:2ch }
+.drow h3{ font-size:1.1rem; font-weight:700 }
+.drow .kind{ font-family:var(--mono); font-size:.57rem; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); margin-top:7px }
+.drow p{ color:var(--text-soft); font-size:.86rem; margin-top:12px; max-width:62ch }
+.chips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:13px; padding:0; list-style:none }
+.chips li{
+  font-family:var(--mono); font-size:.58rem; padding:6px 11px; border-radius:8px;
+  background:rgba(31,95,168,.18); border:1px solid rgba(140,194,242,.16); color:var(--sky);
+}
+.drow{ grid-template-columns:auto 1fr }
+.plate{
+  margin:18px 0 0; max-width:620px; border-radius:14px; overflow:hidden;
+  border:1px solid var(--line-soft); background:#fff; box-shadow:var(--lift-2);
+  transition:transform .42s cubic-bezier(.2,.8,.3,1), box-shadow .42s;
+}
+.plate:hover{ transform:translateY(-4px); box-shadow:var(--lift-3) }
+.plate figcaption{
+  display:flex; align-items:center; gap:10px; padding:10px 14px;
+  background:linear-gradient(180deg, rgba(10,17,30,.96), rgba(6,11,20,.96));
+  border-bottom:1px solid var(--line-soft);
+  font-family:var(--mono); font-size:.54rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--text-mute);
+}
+.plate figcaption::after{ content:""; height:1px; background:var(--line-soft); flex:1 }
+.plate img{ width:100%; height:auto; display:block }
+.plate.photo{ max-width:340px; background:var(--ink) }
+@media (max-width:620px){ .plate, .plate.photo{ max-width:100% } }
+
+/* ================= CONTACT ================= */
+.contact{ display:grid; grid-template-columns:1.04fr .96fr; gap:clamp(22px,3vw,44px); align-items:center }
+@media (max-width:900px){ .contact{ grid-template-columns:1fr } }
+.contact h2{ font-size:var(--s-3); max-width:14ch }
+.contact h2 em{ font-style:normal; color:var(--sky) }
+.clist{ list-style:none; margin:26px 0 0; padding:0; display:grid; gap:10px; max-width:520px }
+.crow{
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  padding:14px 18px; border-radius:var(--r-md);
+  background:var(--glass); border:1px solid var(--line-soft);
+  transition:transform .3s, border-color .3s;
+}
+.crow:hover{ transform:translateX(4px); border-color:var(--line) }
+.crow .ic{ flex:none; color:var(--sky) }
+.crow .grow{ flex:1 1 180px; min-width:0 }
+.crow .k{ font-family:var(--mono); font-size:.54rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); display:block }
+.crow .v{ font-size:.89rem; word-break:break-word; margin-top:2px }
+.crow a{ text-decoration:none; border-bottom:1px solid rgba(140,194,242,.3) }
+.crow a:hover{ color:var(--sky) }
+.copy{
+  font-family:var(--mono); font-size:.55rem; letter-spacing:.14em; text-transform:uppercase;
+  background:var(--glass-2); color:var(--text-soft); border:1px solid var(--edge);
+  padding:9px 14px; border-radius:999px; cursor:pointer; transition:all .25s;
+}
+.copy:hover{ color:var(--text); border-color:var(--azure) }
+.copy[data-done="1"]{ background:var(--chrome); color:#07101C; border-color:transparent }
+
+/* ================= FOOTER ================= */
+footer{ padding-block:clamp(20px,2.6vw,34px) }
+.foot{
+  display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+  padding:18px clamp(18px,2.4vw,28px); border-radius:999px;
+  background:var(--glass); border:1px solid var(--line-soft); box-shadow:var(--lift-1);
+  font-size:.68rem; color:var(--text-mute);
+}
+.foot nav{ display:flex; gap:18px; flex-wrap:wrap }
+.foot a{ text-decoration:none }
+.foot a:hover{ color:var(--text) }
+
+@media (prefers-reduced-motion: no-preference){
+  .rise{ animation:rise .9s cubic-bezier(.2,.8,.3,1) backwards }
+  .d1{ animation-delay:.08s } .d2{ animation-delay:.16s } .d3{ animation-delay:.24s }
+  @keyframes rise{ from{ opacity:0; transform:translateY(16px) } to{ opacity:1; transform:none } }
+}
+</style>
+
+<div class="wrap masthead">
+  <div class="avatar"><img src="assets/portrait.png" width="420" height="420"
+       alt="Portrait of Sanithu Abewickrama"></div>
+  <div class="nm">Sanithu Abewickrama</div>
+  <div class="hd">Security Engineer &middot; Developer</div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#approach">Approach</a>
+    <a href="#credentials">Credentials</a>
+    <a class="cta" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top" class="wrap deck">
+
+<!-- ========== HERO ========== -->
+<section class="slab hero">
+  <img class="bg" src="assets/img-wide.webp" width="2000" height="855"
+       alt="A laptop with an interconnected network of security services projected above it">
+  <div class="hero-in">
+    <p class="hero-eyebrow rise">Cyber Security &middot; Sri Lanka &middot; Worldwide</p>
+    <h1 class="rise d1">
+      <span class="chrome">DETECT.</span><br>
+      <span class="chrome">DEFEND.</span><br>
+      <span class="chrome">PROVE IT.</span>
+      <span class="sub">Sanithu Abewickrama</span>
+    </h1>
+    <p class="pitch rise d2">
+      I build and secure software that has to survive contact with real users, real
+      networks and real adversaries.
+    </p>
+    <div class="hero-actions rise d3">
+      <a class="btn btn-silver" href="#work">
+        View projects
+        <span class="pip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="btn btn-glass" href="#contact">
+        Start a conversation
+        <span class="pip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <div class="hero-stats rise d3">
+      <div class="hstat"><b>5</b><span>Systems delivered end to end</span></div>
+      <div class="hstat"><b>BSc (Hons)</b><span>Cyber Security, Bedfordshire</span></div>
+      <div class="hstat"><b>5</b><span>Certification tracks</span></div>
+      <div class="hstat"><b>Remote</b><span>Available worldwide</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT + FIGURE ========== -->
+<section id="about" class="two">
+  <div class="slab pad about">
+    <p class="label">About</p>
+    <h2>Security is engineering,<br>not paperwork.</h2>
+    <p>
+      I am Sanithu Abewickrama, a cyber security engineer and developer based in Sri
+      Lanka, holding a BSc (Hons) in Cyber Security from the University of
+      Bedfordshire. I work across the whole lifecycle of a system: the architecture,
+      the build, the hardening, and the evidence that proves it behaves the way it
+      claims to.
+    </p>
+    <ul class="marks">
+      <li>
+        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h4>Defence first</h4><p>Threat models written before the first line of code.</p></div>
+      </li>
+      <li>
+        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13 4l-2 16"/></svg></span>
+        <div><h4>Built to ship</h4><p>Systems delivered to clients, not left as prototypes.</p></div>
+      </li>
+      <li>
+        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h16M7 16V9m5 7V5m5 11v-5"/></svg></span>
+        <div><h4>Evidence led</h4><p>Tests, audit trails and documentation someone can follow.</p></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="slab figure-slab">
+    <img src="assets/img-brain.webp" width="1500" height="1878" loading="lazy"
+         alt="A neural core wired into open books, rendered in blue and silver">
+    <div class="veil">
+      <h3>Machines that learn,<br>attackers that adapt</h3>
+      <p>
+        Detection has to keep pace with tooling that writes itself. My work leans on
+        machine learning to tell a person from a script from an agent.
+      </p>
+      <ul class="chipline"><li>AI attribution</li><li>Anomaly detection</li><li>Model evaluation</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section id="services" class="slab pad">
+  <div class="svc-head">
+    <div>
+      <p class="label">Services</p>
+      <h2 style="font-size:var(--s-3)">Complete security and<br>software for every stage.</h2>
+    </div>
+    <p class="lede" style="max-width:34ch;font-size:.92rem">
+      Six things clients hire me for, from securing what already exists to building
+      what does not yet.
+    </p>
+  </div>
+
+  <div class="svc-grid">
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <h4>Cyber Security</h4>
+      <p>Assessment, hardening and a fix list ordered by what actually matters.</p>
+    </article>
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="5" r="1.7"/><circle cx="19" cy="5" r="1.7"/><circle cx="5" cy="19" r="1.7"/><circle cx="19" cy="19" r="1.7"/><path d="m7 7 3 3m4 0 3-3M7 17l3-3m4 0 3 3"/></svg></span>
+      <h4>Networking</h4>
+      <p>Segmentation, firewalls, VPN and monitoring that catches intrusions early.</p>
+    </article>
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h4l2.5-6 3.5 12 2.5-6H21"/></svg></span>
+      <h4>Detection &amp; Response</h4>
+      <p>Detection logic, triage workflow and a plan rehearsed before it is needed.</p>
+    </article>
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13 4l-2 16"/></svg></span>
+      <h4>Web Development</h4>
+      <p>Dashboards, portals and APIs built end to end with security designed in.</p>
+    </article>
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2.5" width="10" height="19" rx="2.6"/><path d="M11 18.5h2"/></svg></span>
+      <h4>Mobile Development</h4>
+      <p>Android applications that keep working when the connection does not.</p>
+    </article>
+    <article class="svc">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="13.5" cy="6.5" r="1.3"/><circle cx="17.5" cy="10.5" r="1.3"/><circle cx="8.5" cy="7.5" r="1.3"/><circle cx="6.5" cy="12.5" r="1.3"/><path d="M12 2a10 10 0 0 0 0 20c1.4 0 2.5-1.1 2.5-2.5 0-.7-.2-1.2-.7-1.7-.4-.4-.6-1-.6-1.6 0-1.4 1.1-2.5 2.5-2.5H17a5 5 0 0 0 5-5c0-4.4-4.5-8-10-8z"/></svg></span>
+      <h4>Design</h4>
+      <p>Interface and visual design that makes a complex system legible.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ========== WORK GRID ========== -->
+<section id="work" class="slab pad">
+  <div class="svc-head">
+    <div>
+      <p class="label">Selected work</p>
+      <h2 style="font-size:var(--s-3)">Systems that speak<br>for themselves.</h2>
+    </div>
+    <a class="btn btn-glass" href="#detail">
+      Read the detail
+      <span class="pip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+    </a>
+  </div>
+
+  <div class="proj-grid">
+    <article class="card">
+      <div class="frame">
+        <img src="assets/shot-sfa-dash.webp" width="1847" height="953" loading="lazy"
+             alt="Sales force automation dashboard with outlet counts and a sales trajectory chart">
+        <span class="tag">01 &middot; Client</span>
+      </div>
+      <div class="meta">
+        <div><div class="t">SFA System</div><div class="s">Sales Force Automation</div></div>
+        <svg class="ar" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="frame">
+        <img src="assets/shot-neuro.webp" width="2000" height="999" loading="lazy"
+             alt="NeuroMutation console showing incident counts, attribution and risk distribution">
+        <span class="tag">02 &middot; Security</span>
+      </div>
+      <div class="meta">
+        <div><div class="t">NeuroMutation</div><div class="s">AI Attack Detection</div></div>
+        <svg class="ar" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="frame">
+        <img src="assets/shot-wpssp.webp" width="2000" height="1256" loading="lazy"
+             alt="Smart Student Portal dashboard with a student journey funnel and payment queue">
+        <span class="tag">03 &middot; Client</span>
+      </div>
+      <div class="meta">
+        <div><div class="t">WP SSP Dashboard</div><div class="s">Offline Capable Portal</div></div>
+        <svg class="ar" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="frame photo">
+        <img src="assets/shot-awareness.webp" width="1500" height="1875" loading="lazy"
+             alt="Sanithu Abewickrama presenting a digital footprint and privacy session to students">
+        <span class="tag">04 &middot; Community</span>
+      </div>
+      <div class="meta">
+        <div><div class="t">Cyber Awareness</div><div class="s">Education Programme</div></div>
+        <svg class="ar" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== APPROACH ========== -->
+<section id="approach" class="slab formula">
+  <img class="bg" src="assets/img-build.webp" width="1700" height="1062" loading="lazy"
+       alt="A laptop with a connected system of services projected above it">
+  <div class="in">
+    <p class="label">How I work</p>
+    <h2>A simple formula for<br><em>systems that hold.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <h4>Model the threat</h4>
+        <p>Before any code, we agree what we are defending, from whom, and what failure would cost.</p>
+        <span class="no">1</span>
+      </div>
+      <div class="step">
+        <h4>Build and harden</h4>
+        <p>Architecture, implementation and controls together, with authentication and audit trails designed in from the start.</p>
+        <span class="no">2</span>
+      </div>
+      <div class="step">
+        <h4>Prove and hand over</h4>
+        <p>Tests, evidence and documentation a successor can follow, so the system survives after I leave it.</p>
+        <span class="no">3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DETAIL ========== -->
+<section id="detail" class="slab pad">
+  <p class="label">In detail</p>
+  <h2 style="font-size:var(--s-3)">The work, closer up</h2>
+
+  <div class="dlist">
+    <article class="drow">
+      <span class="num">01</span>
+      <div>
+        <h3>SFA System</h3>
+        <div class="kind">Sales Force Automation &middot; Client Project</div>
+        <p>
+          A distribution business runs on information usually scattered across paper,
+          memory and phone calls. This platform gathers it into one operational view:
+          every representative, every outlet and every route across the territory, with
+          live sales trajectory, stock movement and top product reporting, and role based
+          administrative access backed by a complete audit trail.
+        </p>
+        <ul class="chips"><li>Laravel</li><li>PHP</li><li>MySQL</li><li>REST API</li><li>Agile</li></ul>
+        <figure class="plate">
+          <figcaption>Distribution dashboard</figcaption>
+          <img src="assets/shot-sfa-dash.webp" width="1847" height="953" loading="lazy" alt="Sales force automation dashboard with outlet counts and a sales trajectory chart">
+        </figure>
+      </div>
+    </article>
+
+    <article class="drow">
+      <span class="num">02</span>
+      <div>
+        <h3>NeuroMutation</h3>
+        <div class="kind">AI and non AI attack detection and prevention</div>
+        <p>
+          A security operations console that treats attribution as the first question
+          rather than the last. It separates manual operators from automated tooling and
+          autonomous agents, distributes every incident across five risk levels, and
+          routes anything consequential into an approval queue instead of firing
+          automatically. Detection spans an attribution engine, an immune layer and human
+          escalation, with threat hunting, forensics and MITRE ATT&amp;CK mapping
+          alongside.
+        </p>
+        <ul class="chips"><li>Python</li><li>Machine learning</li><li>Threat attribution</li><li>MITRE ATT&amp;CK</li><li>Forensics</li></ul>
+        <figure class="plate">
+          <figcaption>Console overview</figcaption>
+          <img src="assets/shot-neuro.webp" width="2000" height="999" loading="lazy" alt="NeuroMutation console showing incident counts, attribution and risk distribution">
+        </figure>
+      </div>
+    </article>
+
+    <article class="drow">
+      <span class="num">03</span>
+      <div>
+        <h3>WP SSP Dashboard</h3>
+        <div class="kind">Offline Capable Education System &middot; Client Project</div>
+        <p>
+          The Western Province Smart Student Portal was shaped by one demanding
+          condition: the institution could not depend on the internet, so the system had
+          to work without it. Registration, examinations and wellness checks run with no
+          connection, while uploads, payments and email stay online and reconcile the
+          moment it returns.
+        </p>
+        <ul class="chips"><li>Offline capable</li><li>Progressive web app</li><li>Data sync</li><li>Dashboard design</li></ul>
+        <figure class="plate">
+          <figcaption>Administrator dashboard, local network mode</figcaption>
+          <img src="assets/shot-wpssp.webp" width="2000" height="1256" loading="lazy" alt="Smart Student Portal dashboard with a student journey funnel and payment queue">
+        </figure>
+      </div>
+    </article>
+
+    <article class="drow">
+      <span class="num">04</span>
+      <div>
+        <h3>Cyber Awareness Programme</h3>
+        <div class="kind">Security Education &middot; Community</div>
+        <p>
+          Most breaches begin with a person rather than a protocol. This programme is
+          delivered in person to Sri Lankan school students, covering digital footprint
+          and privacy, the attacks they actually meet online, and the habits that prevent
+          them. It is written in language students recognise and structured closer to a
+          conversation than a compliance module.
+        </p>
+        <ul class="chips"><li>Security awareness</li><li>Curriculum design</li><li>Workshop delivery</li></ul>
+        <figure class="plate photo">
+          <figcaption>Session delivery, school computer laboratory</figcaption>
+          <img src="assets/shot-awareness.webp" width="1500" height="1875" loading="lazy" alt="Sanithu Abewickrama presenting a digital footprint and privacy session to students">
+        </figure>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== CREDENTIALS ========== -->
+<section id="credentials" class="slab pad">
+  <p class="label">Credentials</p>
+  <h2 style="font-size:var(--s-3)">Qualified across five fronts</h2>
+
+  <div class="cred-grid">
+    <article class="cred">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 20 5v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <div class="n">Cybersecurity</div>
+      <div class="s">Google Cybersecurity &middot; Cisco CyberOps &middot; ISC2 Certified in Cybersecurity</div>
+    </article>
+    <article class="cred">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.4v4M12 17.4v4M2.4 12h4M17.6 12h4M5.2 5.2 8 8M16 16l2.8 2.8M18.8 5.2 16 8M8 16l-2.8 2.8"/></svg></span>
+      <div class="n">AI and ML</div>
+      <div class="s">Applied machine learning for detection and attribution</div>
+    </article>
+    <article class="cred">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.5 18A4.5 4.5 0 0 1 6 9a6 6 0 0 1 11.6-1.5A4 4 0 0 1 18 18z"/></svg></span>
+      <div class="n">Cloud</div>
+      <div class="s">Platform, infrastructure and deployment</div>
+    </article>
+    <article class="cred">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h13"/><circle cx="18.5" cy="12" r="1.6"/></svg></span>
+      <div class="n">Project Management</div>
+      <div class="s">Agile delivery, risk and documentation</div>
+    </article>
+    <article class="cred">
+      <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20c-1-6 1-11 5-14M21 20c1-6-1-11-5-14"/><path d="M12 7v13"/></svg></span>
+      <div class="n">Professional Certifications</div>
+      <div class="s">BSc (Hons) Cyber Security, University of Bedfordshire</div>
+    </article>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" class="slab pad contact">
+  <div>
+    <p class="label">Contact</p>
+    <h2>Let us create something <em>extraordinary.</em></h2>
+    <p class="lede" style="margin-top:14px;font-size:.93rem">
+      Open to security roles, development work, consulting and awareness sessions.
+      Email reaches me fastest.
+    </p>
+
+    <ul class="clist">
+      <li class="crow">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+        <span class="grow"><span class="k">Email</span><span class="v" id="email">theumithsanithu@gmail.com</span></span>
+        <button class="copy" id="copyBtn" type="button">Copy</button>
+      </li>
+      <li class="crow">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5V17M7.5 7.2v.1M12 17v-3.6c0-1.2.9-2.1 2-2.1s2 .9 2 2.1V17"/></svg></span>
+        <span class="grow"><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/theumith-sanithu-6a215b364" target="_blank" rel="noopener">View my LinkedIn profile</a></span></span>
+      </li>
+      <li class="crow">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4 1.3-4-2.2-6-2.7m12 5.2v-3.6c0-1 .1-1.5-.5-2 2.8-.3 5.5-1.4 5.5-6.1a4.7 4.7 0 0 0-1.3-3.3 4.4 4.4 0 0 0-.1-3.3s-1.1-.3-3.6 1.3a12.3 12.3 0 0 0-6.5 0C5.9 2.8 4.8 3.1 4.8 3.1a4.4 4.4 0 0 0-.1 3.3A4.7 4.7 0 0 0 3.4 9.8c0 4.7 2.7 5.8 5.5 6.1-.4.4-.5.9-.5 1.6v4"/></svg></span>
+        <span class="grow"><span class="k">GitHub</span><span class="v"><a href="https://github.com/theumithsanithu-TSA" target="_blank" rel="noopener">View my GitHub repositories</a></span></span>
+      </li>
+      <li class="crow">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <span class="grow"><span class="k">Location</span><span class="v">Sri Lanka, available remotely</span></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="slab figure-slab" style="box-shadow:var(--lift-3)">
+    <img src="assets/img-growth.webp" width="1500" height="1875" loading="lazy" alt="">
+    <div class="veil">
+      <h3>Now accepting<br>projects worldwide</h3>
+      <p>Freelance engagements and full time roles alike. Tell me what you are building.</p>
+      <a class="btn btn-silver" href="mailto:theumithsanithu@gmail.com" style="margin-top:20px;align-self:flex-start">
+        Send an email
+        <span class="pip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot">
+    <span>© <span id="yr">2026</span> Sanithu Abewickrama</span>
+    <nav>
+      <a href="#about">About</a><a href="#work">Work</a>
+      <a href="#credentials">Credentials</a><a href="#contact">Contact</a>
+    </nav>
+    <span>Detect. Defend. Prove it.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  if (!reduce && fine) {
+    document.querySelectorAll('.card, .svc, .cred, .step').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - .5;
+        var py = (e.clientY - r.top) / r.height - .5;
+        el.style.transform = 'perspective(1000px) rotateY(' + (px * 5).toFixed(2) +
+          'deg) rotateX(' + (-py * 5).toFixed(2) + 'deg) translateY(-6px)';
+      });
+      el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  var btn = document.getElementById('copyBtn');
+  btn.addEventListener('click', function () {
+    var node = document.getElementById('email');
+    function select() {
+      var r = document.createRange();
+      r.selectNodeContents(node);
+      var s = window.getSelection();
+      s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Select and copy';
+      setTimeout(function () { btn.textContent = 'Copy'; }, 2200);
+    }
+    function done() {
+      btn.textContent = 'Copied'; btn.dataset.done = '1';
+      setTimeout(function () { btn.textContent = 'Copy'; btn.dataset.done = ''; }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(node.textContent.trim()).then(done).catch(select);
+    } else { select(); }
+  });
+</script>
